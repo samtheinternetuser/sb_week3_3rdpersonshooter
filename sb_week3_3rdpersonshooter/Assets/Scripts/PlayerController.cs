@@ -2,13 +2,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float horizontalInput;
-    public float verticalInput;
+  
     public float speed = 10.0f;
     public float xRange = 20;
     public float zRange = 20;
-    public float growthrate = 4;
-
+    public GameObject projectile;
+    public Vector3 spawnOffset;
     void Start()
     {
 
@@ -17,8 +16,24 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        horizontalInput = Input.GetAxis("Horizontal");
-        transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
+        float horizontalInput1 = Input.GetAxis("Horizontal2");
+        float verticalInput1 = Input.GetAxis("Vertical2");
+    
+        Vector3 moveDirection1 = new Vector3(horizontalInput1, 0, verticalInput1).normalized;
+
+        transform.Translate(moveDirection1 * speed * Time.deltaTime);
+        
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+           
+    Destroy(Instantiate(projectile, transform.position + spawnOffset, projectile.transform.rotation), 5);
+//            Instantiate(projectile, transform.position + spawnOffset, projectile.transform.rotation);
+        }
+
+/*
+        #region boundary constraints
+
 
         if (transform.position.x < -xRange)
         {
@@ -31,28 +46,19 @@ public class PlayerController : MonoBehaviour
 
         }
 
-
-        verticalInput = Input.GetAxis("Vertical");
-        transform.Translate(Vector3.forward * verticalInput * Time.deltaTime * speed);
-
         if (transform.position.z < -zRange)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, -zRange);
 
         }
-//        if (transform.position.z > zRange)
-//        {
-//            transform.position = new Vector3(transform.position.x, transform.position.y, zRange);
-//        }
-
+        //        if (transform.position.z > zRange)
+        //        {
+        //            transform.position = new Vector3(transform.position.x, transform.position.y, zRange);
+        //        }
+        #endregion
+*/
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("animal"))
-        {
-            transform.localScale = transform.localScale * growthrate;
-            other.gameObject.SetActive(false);
-        }
-    }
+
+
 }
