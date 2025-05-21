@@ -4,8 +4,10 @@ public class PlayerController : MonoBehaviour
 {
   
     public float speed = 10.0f;
-    public float xRange = 20;
-    public float zRange = 20;
+    public float xLowerBound = -20;
+    public float xUpperBound = 179;
+    public float zLowerBound = -10;
+    public float zUpperBound = 204;
     public GameObject projectile;
     public Vector3 spawnOffset;
     void Start()
@@ -31,32 +33,33 @@ public class PlayerController : MonoBehaviour
 //            Instantiate(projectile, transform.position + spawnOffset, projectile.transform.rotation);
         }
 
-/*
+
         #region boundary constraints
 
 
-        if (transform.position.x < -xRange)
+        if (transform.position.x < xLowerBound)
         {
-            transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);
+            transform.position = new Vector3(xLowerBound, transform.position.y, transform.position.z);
 
         }
-        if (transform.position.x > xRange)
+        if (transform.position.x > xUpperBound)
         {
-            transform.position = new Vector3(xRange, transform.position.y, transform.position.z);
+            transform.position = new Vector3(xUpperBound, transform.position.y, transform.position.z);
 
         }
 
-        if (transform.position.z < -zRange)
+        if (transform.position.z < zLowerBound)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, -zRange);
+            transform.position = new Vector3(transform.position.x, transform.position.y, zLowerBound);
 
         }
-        //        if (transform.position.z > zRange)
-        //        {
-        //            transform.position = new Vector3(transform.position.x, transform.position.y, zRange);
-        //        }
+        if (transform.position.z > zUpperBound)
+        
+                {
+                    transform.position = new Vector3(transform.position.x, transform.position.y, zUpperBound);
+                }
         #endregion
-*/
+
     }
 
 

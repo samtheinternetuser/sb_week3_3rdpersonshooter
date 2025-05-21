@@ -8,6 +8,7 @@ TagManager:
   - veg
   - wall
   - ground
+  - blob
   layers:
   - Default
   - TransparentFX
