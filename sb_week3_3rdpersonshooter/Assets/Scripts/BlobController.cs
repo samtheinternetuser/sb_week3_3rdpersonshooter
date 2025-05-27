@@ -12,6 +12,7 @@ public class BlobController : MonoBehaviour
     public float zLowerBound = -10;
     public float zUpperBound = 204;
     public float growthrate = 1.2f;
+    public float growthlimit = 20;
     public float shrinkrate = 0.8f;
     public Vector3 spawnOffset;
     public Vector3 moveDirection;
@@ -22,6 +23,12 @@ public class BlobController : MonoBehaviour
 
     void Update()
     {
+
+        //limit size
+        if (transform.localScale.x > growthlimit)
+        {
+            transform.localScale = new Vector3(growthlimit, growthlimit, growthlimit);
+        }
 
         float horizontalInput = Input.GetAxis("Horizontal1");
         float verticalInput = Input.GetAxis("Vertical1");

@@ -1,3 +1,7 @@
+//THIS IS THE ABORTIVE ATTEMPT AT A SCRIPT FOR THE ENEMY BLOB IN THE SINGLE PLAYER VERSION OF THE GAME
+
+/*
+
 using UnityEngine;
 
 public class BlobEnemyController : MonoBehaviour
@@ -8,28 +12,24 @@ public class BlobEnemyController : MonoBehaviour
     public float zLowerBound = -10;
     public float zUpperBound = 204;
     public float growthrate = 1.2f;
+    public float growthlimit = 20;
     public float shrinkrate = 0.8f;
-    public Vector3 moveDirection;
     public Transform target;
-
     void Start()
     {
-        // Optional: Initialization
+
     }
 
     void Update()
     {
-        // Get closest animal OR human
-        target = FindClosestAnimalOrHuman();
-
-        if (target != null)
+        target = GameObject.FindWithTag("animal");
+       transform.position = Vector3.MoveTowards(target);
+        //limit size
+        if (transform.localScale.x > growthlimit)
         {
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                target.position,
-                speed * Time.deltaTime
-            );
+            transform.localScale = new Vector3(growthlimit, growthlimit, growthlimit);
         }
+
 
         // Boundary constraints
         if (transform.position.x < xLowerBound)
@@ -45,49 +45,6 @@ public class BlobEnemyController : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y, zUpperBound);
     }
 
-    Transform FindClosestTargetWithTag(string tag)
-    {
-        GameObject[] targets = GameObject.FindGameObjectsWithTag(tag);
-        GameObject closest = null;
-        float minDistance = Mathf.Infinity;
-
-        foreach (GameObject obj in targets)
-        {
-            float distance = Vector3.Distance(transform.position, obj.transform.position);
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                closest = obj;
-            }
-        }
-
-        return closest != null ? closest.transform : null;
-    }
-
-    Transform FindClosestAnimalOrHuman()
-    {
-        GameObject[] animals = GameObject.FindGameObjectsWithTag("animal");
-        GameObject[] humans = GameObject.FindGameObjectsWithTag("Player");
-        GameObject[] allTargets = new GameObject[animals.Length + humans.Length];
-
-        animals.CopyTo(allTargets, 0);
-        humans.CopyTo(allTargets, animals.Length);
-
-        GameObject closest = null;
-        float minDistance = Mathf.Infinity;
-
-        foreach (GameObject obj in allTargets)
-        {
-            float distance = Vector3.Distance(transform.position, obj.transform.position);
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                closest = obj;
-            }
-        }
-
-        return closest != null ? closest.transform : null;
-    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -108,3 +65,4 @@ public class BlobEnemyController : MonoBehaviour
         }
     }
 }
+*/
